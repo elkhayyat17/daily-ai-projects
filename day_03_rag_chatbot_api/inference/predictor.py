@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import List
 
-from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma
 from loguru import logger
 
 from config import get_settings
@@ -113,6 +113,5 @@ class RAGPredictor:
             texts=[d["page_content"] for d in documents],
             metadatas=[d["metadata"] for d in documents],
         )
-        self.vectorstore.persist()
         logger.info("Ingested {} documents", len(documents))
         return len(documents)

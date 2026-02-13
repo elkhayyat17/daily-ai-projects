@@ -37,7 +37,7 @@ class EmbeddingFactory:
                 api_key=self.config.openai_api_key,
             )
 
-        from langchain_community.embeddings import HuggingFaceEmbeddings
+        from langchain_huggingface import HuggingFaceEmbeddings
 
         logger.info("Using local embeddings: {}", self.config.local_embedding_model)
         return HuggingFaceEmbeddings(model_name=self.config.local_embedding_model)

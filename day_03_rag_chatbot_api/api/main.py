@@ -14,7 +14,7 @@ from inference.predictor import RAGPredictor
 async def lifespan(app: FastAPI):
     settings = get_settings()
     logger.info("Starting {} v{}", settings.project_name, settings.version)
-    RAGPredictor.get_instance()
+    # Predictor loads lazily on first request to avoid blocking startup
     yield
     logger.info("Shutting down")
 

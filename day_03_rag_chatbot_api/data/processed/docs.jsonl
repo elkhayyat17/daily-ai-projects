@@ -1,0 +1,4 @@
+{"id": "doc-1", "title": "RAG Overview", "content": "Retrieval-Augmented Generation (RAG) combines vector search with language models to ground answers in relevant documents."}
+{"id": "doc-2", "title": "ChromaDB", "content": "ChromaDB is an open-source vector database optimized for storing embeddings and performing similarity search."}
+{"id": "doc-3", "title": "LangChain", "content": "LangChain provides abstractions for building LLM applications, including retrievers, document loaders, and chains."}
+{"id": "doc-4", "title": "FastAPI", "content": "FastAPI is a modern Python web framework for building fast APIs with type hints and automatic OpenAPI docs."}

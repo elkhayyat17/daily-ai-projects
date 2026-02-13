@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 from typing import Dict, List
 
-from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma
 from loguru import logger
 
 from config import get_settings

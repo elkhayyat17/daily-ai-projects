@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 from typing import List
 
-from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma
 from langchain_core.documents import Document
 from loguru import logger
 
@@ -44,7 +44,6 @@ def train() -> Path:
         persist_directory=str(settings.vector_db_dir),
         collection_name="rag_docs",
     )
-    vectorstore.persist()
     logger.info("Vector store persisted to {}", settings.vector_db_dir)
     return settings.vector_db_dir
 

@@ -19,7 +19,7 @@ class Settings:
     project_name: str = field(default_factory=lambda: os.getenv("RAG_PROJECT_NAME", "Day 03 - RAG Chatbot API"))
     version: str = field(default_factory=lambda: os.getenv("RAG_VERSION", "0.1.0"))
 
-    embedding_provider: str = field(default_factory=lambda: os.getenv("EMBEDDING_PROVIDER", "openai").lower())
+    embedding_provider: str = field(default_factory=lambda: os.getenv("EMBEDDING_PROVIDER", "local").lower())
     openai_api_key: str | None = field(default_factory=lambda: os.getenv("OPENAI_API_KEY"))
     openai_model: str = field(default_factory=lambda: os.getenv("OPENAI_CHAT_MODEL", "gpt-4o-mini"))
     openai_embedding_model: str = field(default_factory=lambda: os.getenv("OPENAI_EMBEDDING_MODEL", "text-embedding-3-small"))
