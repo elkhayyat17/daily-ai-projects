@@ -11,7 +11,7 @@ build/
 venv/
 .venv/
 env/
-
+AGENT_INSTRUCTIONS.md
 # IDE
 .vscode/
 .idea/

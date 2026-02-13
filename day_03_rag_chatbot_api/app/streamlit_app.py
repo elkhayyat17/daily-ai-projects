@@ -4,9 +4,13 @@ import os
 import sys
 
 import streamlit as st
+from dotenv import load_dotenv
+
+# Load environment variables from parent directory .env
+_PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+load_dotenv(os.path.join(os.path.dirname(_PROJECT_DIR), ".env"))
 
 # Ensure project root is on sys.path for imports
-_PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if _PROJECT_DIR not in sys.path:
     sys.path.insert(0, _PROJECT_DIR)
 

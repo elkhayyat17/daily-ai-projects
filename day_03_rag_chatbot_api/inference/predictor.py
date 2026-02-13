@@ -79,6 +79,13 @@ class RAGPredictor:
             "(Tip: Configure OPENAI_API_KEY for enhanced responses.)"
         )
 
+    @staticmethod
+    def _normalize_score(distance: float | None) -> float:
+        # Convert distance (lower is better) to a bounded similarity score in [0, 1].
+        if distance is None:
+            return 0.0
+        return max(0.0, min(1.0, 1.0 / (1.0 + float(distance))))
+
     def predict(self, query: str, top_k: int | None = None) -> Prediction:
         cleaned = clean_query(query)
         if self.vectorstore is None:
@@ -88,8 +95,14 @@ class RAGPredictor:
             )
 
         k = top_k or self.settings.top_k
-        results = self.vectorstore.similarity_search_with_relevance_scores(cleaned.text, k=k)
-        sources = [SourceDoc(id=item[0].metadata.get("id", "unknown"), score=float(item[1])) for item in results]
+        results = self.vectorstore.similarity_search_with_score(cleaned.text, k=k)
+        sources = [
+            SourceDoc(
+                id=doc.metadata.get("id", "unknown"),
+                score=self._normalize_score(distance),
+            )
+            for doc, distance in results
+        ]
         context = self._build_context(results)
         answer = self._generate_answer(cleaned.text, context)
         return Prediction(answer=answer, sources=sources)

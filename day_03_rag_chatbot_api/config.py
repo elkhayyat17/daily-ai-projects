@@ -5,6 +5,15 @@ from dataclasses import dataclass, field
 from functools import lru_cache
 from pathlib import Path
 
+from dotenv import load_dotenv
+
+# Load .env from project root or parent directory
+_this_dir = Path(__file__).resolve().parent
+for _candidate in [_this_dir / ".env", _this_dir.parent / ".env"]:
+    if _candidate.exists():
+        load_dotenv(_candidate)
+        break
+
 
 @dataclass(frozen=True)
 class Settings:

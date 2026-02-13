@@ -40,7 +40,10 @@ class EmbeddingFactory:
         from langchain_huggingface import HuggingFaceEmbeddings
 
         logger.info("Using local embeddings: {}", self.config.local_embedding_model)
-        return HuggingFaceEmbeddings(model_name=self.config.local_embedding_model)
+        return HuggingFaceEmbeddings(
+            model_name=self.config.local_embedding_model,
+            encode_kwargs={"normalize_embeddings": True},
+        )
 
 
 def get_embeddings():
