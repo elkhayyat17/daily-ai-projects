@@ -15,6 +15,7 @@
 |-----|---------|------------|--------|
 | 01  | [Real-Time Sentiment Analysis API](day_01_sentiment_analysis_api/) | DistilBERT, FastAPI, Streamlit, Docker | ✅ Complete |
 | 02  | [Image Classification API](day_02_image_classification_api/) | ResNet50, Transfer Learning, FastAPI, Docker | ✅ Complete |
+| 03  | [RAG Chatbot API](day_03_rag_chatbot_api/) | LangChain, ChromaDB, FastAPI, Streamlit | ✅ Complete |
 
 ---
 
