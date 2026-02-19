@@ -1,0 +1,49 @@
+version: "3.9"
+
+services:
+  api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: music-genre-classifier:latest
+    container_name: music_genre_api
+    ports:
+      - "8004:8004"
+    volumes:
+      - ../artifacts:/app/artifacts
+      - ../data:/app/data
+    environment:
+      - MUSIC_LOG_LEVEL=INFO
+      - MUSIC_API_HOST=0.0.0.0
+      - MUSIC_API_PORT=8004
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c",
+             "import urllib.request; urllib.request.urlopen('http://localhost:8004/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+  streamlit:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: music-genre-classifier:latest
+    container_name: music_genre_ui
+    command: >
+      streamlit run app/streamlit_app.py
+      --server.port=8501
+      --server.address=0.0.0.0
+      --server.headless=true
+    ports:
+      - "8501:8501"
+    volumes:
+      - ../artifacts:/app/artifacts
+      - ../data:/app/data
+    environment:
+      - MUSIC_LOG_LEVEL=INFO
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
