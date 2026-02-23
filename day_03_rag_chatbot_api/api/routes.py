@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from fastapi import APIRouter, HTTPException
 
-from api.schemas import ChatRequest, ChatResponse, HealthResponse, IngestRequest, IngestResponse
+from api.schemas import ChatRequest, ChatResponse, HealthResponse, IngestRequest, IngestResponse, SourceItem
 from inference.predictor import RAGPredictor
 
 router = APIRouter()
@@ -23,7 +23,7 @@ def chat(payload: ChatRequest) -> ChatResponse:
     prediction = predictor.predict(payload.query, top_k=payload.top_k)
     return ChatResponse(
         answer=prediction.answer,
-        sources=[{"id": s.id, "score": s.score} for s in prediction.sources],
+        sources=[SourceItem(id=s.id, score=s.score) for s in prediction.sources],
     )
 
 
