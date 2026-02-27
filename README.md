@@ -18,6 +18,7 @@
 | 03  | [RAG Chatbot API](day_03_rag_chatbot_api/) | LangChain, ChromaDB, FastAPI, Streamlit | ✅ Complete |
 | 04  | [Music Genre Classifier](day_04_music_genre_classifier/) | Librosa, Random Forest, FastAPI, Streamlit, Docker | ✅ Complete |
 | 05  | [Document Q&A with Vector Database](day_05_document_qa/) | FAISS, Sentence-Transformers, Extractive QA, FastAPI, Docker | ✅ Complete |
+| 06  | [Object Detection API](day_06_object_detection_api/) | YOLOv8, Ultralytics, FastAPI, Streamlit, Docker | ✅ Complete |
 
 ---
 
