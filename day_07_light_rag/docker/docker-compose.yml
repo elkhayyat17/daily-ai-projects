@@ -1,0 +1,22 @@
+services:
+  light-rag:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - EMBEDDING_PROVIDER=local
+      - LIGHTRAG_LOG_LEVEL=INFO
+      - LIGHTRAG_BM25_WEIGHT=0.3
+      - LIGHTRAG_SEMANTIC_WEIGHT=0.7
+    volumes:
+      - lightrag-artifacts:/app/artifacts
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  lightrag-artifacts:

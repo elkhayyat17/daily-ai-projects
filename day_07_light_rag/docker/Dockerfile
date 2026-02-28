@@ -1,0 +1,26 @@
+FROM python:3.10-slim AS base
+
+WORKDIR /app
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends build-essential curl \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+# Pre-build the index at image build time
+RUN python -c "from data.prepare_data import prepare_data; prepare_data()" \
+    && python -c "from training.train import train; train()"
+
+EXPOSE 8000
+
+HEALTHCHECK --interval=30s --timeout=5s \
+    CMD curl -f http://localhost:8000/health || exit 1
+
+CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000"]
